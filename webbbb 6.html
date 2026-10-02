@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Grade Calculator - Aditi Selukar</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f5f9;
+        }
+
+        /* Header */
+        .header {
+            background-color: #1e3a8a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .header p {
+            margin: 8px 0 0;
+            font-size: 16px;
+        }
+
+        /* Calculator Box */
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .container h2 {
+            text-align: center;
+            color: #1e3a8a;
+            margin-bottom: 25px;
+        }
+
+        /* Input Fields */
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        /* Button */
+        button {
+            width: 100%;
+            padding: 13px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Result */
+        .result {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f8fafc;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .result h3 {
+            text-align: center;
+            color: #1e3a8a;
+        }
+
+        .result p {
+            font-size: 17px;
+            margin: 10px 0;
+        }
+
+        .grade {
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">
+
+        <h1>Aditi Selukar | CM25064</h1>
+
+        <p>Student Grade Calculator</p>
+
+    </div>
+
+
+    <!-- Calculator -->
+    <div class="container">
+
+        <h2>Enter Student Marks</h2>
+
+
+        <!-- Subject 1 -->
+        <div class="input-group">
+            <label for="subject1">Subject 1</label>
+            <input type="number" id="subject1" placeholder="Enter marks out of 100">
+        </div>
+
+
+        <!-- Subject 2 -->
+        <div class="input-group">
+            <label for="subject2">Subject 2</label>
+            <input type="number" id="subject2" placeholder="Enter marks out of 100">
+        </div>
+
+
+        <!-- Subject 3 -->
+        <div class="input-group">
+            <label for="subject3">Subject 3</label>
+            <input type="number" id="subject3" placeholder="Enter marks out of 100">
+        </div>
+
+
+        <!-- Subject 4 -->
+        <div class="input-group">
+            <label for="subject4">Subject 4</label>
+            <input type="number" id="subject4" placeholder="Enter marks out of 100">
+        </div>
+
+
+        <!-- Subject 5 -->
+        <div class="input-group">
+            <label for="subject5">Subject 5</label>
+            <input type="number" id="subject5" placeholder="Enter marks out of 100">
+        </div>
+
+
+        <!-- Calculate Button -->
+        <button onclick="calculateGrade()">
+            Calculate Result
+        </button>
+
+
+        <!-- Error Message -->
+        <div id="error" class="error"></div>
+
+
+        <!-- Result -->
+        <div id="result" class="result">
+
+            <h3>Student Result</h3>
+
+            <p>
+                <strong>Total Marks:</strong>
+                <span id="total"></span> / 500
+            </p>
+
+            <p>
+                <strong>Percentage:</strong>
+                <span id="percentage"></span>%
+            </p>
+
+            <p class="grade">
+                Grade: <span id="grade"></span>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <div class="footer">
+        Aditi Selukar | CM25064
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+
+        function calculateGrade() {
+
+            // Get marks from input fields
+            let marks1 = Number(document.getElementById("subject1").value);
+            let marks2 = Number(document.getElementById("subject2").value);
+            let marks3 = Number(document.getElementById("subject3").value);
+            let marks4 = Number(document.getElementById("subject4").value);
+            let marks5 = Number(document.getElementById("subject5").value);
+
+            // Get error and result elements
+            let error = document.getElementById("error");
+            let result = document.getElementById("result");
+
+            // Check whether marks are valid
+            if (
+                marks1 < 0 || marks1 > 100 ||
+                marks2 < 0 || marks2 > 100 ||
+                marks3 < 0 || marks3 > 100 ||
+                marks4 < 0 || marks4 > 100 ||
+                marks5 < 0 || marks5 > 100
+            ) {
+
+                error.textContent = "Please enter marks between 0 and 100.";
+                result.style.display = "none";
+
+                return;
+            }
+
+            // Calculate total marks
+            let total = marks1 + marks2 + marks3 + marks4 + marks5;
+
+            // Calculate percentage
+            let percentage = (total / 500) * 100;
+
+            // Calculate grade
+            let grade;
+
+            if (percentage >= 90) {
+                grade = "A+";
+            }
+            else if (percentage >= 80) {
+                grade = "A";
+            }
+            else if (percentage >= 70) {
+                grade = "B";
+            }
+            else if (percentage >= 60) {
+                grade = "C";
+            }
+            else if (percentage >= 50) {
+                grade = "D";
+            }
+            else if (percentage >= 40) {
+                grade = "E";
+            }
+            else {
+                grade = "F";
+            }
+
+            // Display result
+            document.getElementById("total").textContent = total;
+            document.getElementById("percentage").textContent =
+                percentage.toFixed(2);
+            document.getElementById("grade").textContent = grade;
+
+            // Show result box
+            result.style.display = "block";
+
+            // Clear error message
+            error.textContent = "";
+        }
+
+    </script>
+
+</body>
+
+</html>
